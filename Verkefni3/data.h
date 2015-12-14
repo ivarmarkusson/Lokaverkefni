@@ -54,6 +54,8 @@ class Data
         void RemoveCom(QString str);
         //Removes scientist or computer from the list.
 
+        void EditSci(Scientist sci);
+
         void clearSciVector();
         void clearComVector();
         void clearConnectVector();

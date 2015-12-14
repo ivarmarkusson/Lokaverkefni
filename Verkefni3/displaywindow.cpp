@@ -412,3 +412,28 @@ void DisplayWindow::on_pushButton_remove_sci_clicked()
     connectAllScientists();
 }
 
+
+void DisplayWindow::on_pushButton_edit_sci_clicked()
+{
+    Scientist editScientist;
+
+    int index = ui->table_display_sci->currentIndex().row();
+    editScientist = currentlyDisplayedScientists.at(index);
+
+    string name = ui->line_sci_name_add_remove_edit->text().toStdString();
+    string gender = ui->line_sci_gender_add_remove_edit->text().toStdString();
+    string birth = ui->line_sci_birth_add_remove_edit->text().toStdString();
+    string death = ui->line_sci_death_add_remove_edit->text().toStdString();
+
+    editScientist.setName_Scientist(name);
+    editScientist.setGender_Scientist(gender);
+    editScientist.setBirth_Scientist(birth);
+    editScientist.setDeath_Scientist(death);
+
+    Data dataobj;
+    dataobj.EditSci(editScientist);
+
+    ui->statusbar->showMessage("Scientist Has Been Edited!", 3000);
+
+    connectAllScientists();
+}

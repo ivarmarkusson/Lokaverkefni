@@ -172,6 +172,24 @@ void Data::RemoveSci(QString str)
     closeDatabase();
 
 }
+
+void Data::EditSci(Scientist sci)
+{
+    openDatabase();
+    QSqlQuery query(db);
+
+    QString name = QString::fromStdString(sci.getName_Scientist());
+    QString birth = QString::fromStdString(sci.getBirth_Scientist());
+    QString death = QString::fromStdString(sci.getDeath_Scientist());
+    QString gender = QString::fromStdString(sci.getGender_Scientist());
+    QString id = QString::number(sci.getID_Scientist());
+
+    query.prepare("UPDATE persons SET Name = '" + name + "', Birth = '" + birth + "', Death = '" + death + "', Gender = '" + gender + "' WHERE id = '" + id + "'");
+    query.exec();
+
+    query.clear();
+    closeDatabase();
+}
 /*
 void Data::AddConnected(QString str)
 {
