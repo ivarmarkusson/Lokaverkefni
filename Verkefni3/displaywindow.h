@@ -47,6 +47,10 @@ private slots:
 
     void on_table_display_sci_clicked();
 
+    void on_pushButton_remove_sci_clicked();
+
+    void on_table_display_com_clicked();
+
 private:
     void connectAllScientists();
     void displayScientists(vector<Scientist> scientists);

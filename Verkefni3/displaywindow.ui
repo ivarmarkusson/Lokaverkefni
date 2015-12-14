@@ -21,7 +21,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_sci_main">
        <attribute name="title">
@@ -135,14 +135,14 @@
         <item row="3" column="4">
          <widget class="QLineEdit" name="line_sci_death_add_remove_edit">
           <property name="placeholderText">
-           <string>Death?...</string>
+           <string>Empty if Alive...</string>
           </property>
          </widget>
         </item>
         <item row="3" column="5">
          <widget class="QLineEdit" name="line_sci_gender_add_remove_edit">
           <property name="placeholderText">
-           <string>Sex?...</string>
+           <string>female/male...</string>
           </property>
          </widget>
         </item>
@@ -220,6 +220,9 @@
         </item>
         <item row="4" column="1">
          <widget class="QPushButton" name="pushButton_com_remove">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Remove</string>
           </property>
@@ -227,6 +230,9 @@
         </item>
         <item row="4" column="2">
          <widget class="QPushButton" name="pushButton_com_edit">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Edit</string>
           </property>

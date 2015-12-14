@@ -50,6 +50,7 @@ vector<Scientist> Engine::sortSientists(int i)
             cout << "Invalid Input! Try Again!" << endl;
             break;
         }
+    clearSciVector();
     return temp;
 }
 
@@ -131,23 +132,16 @@ void Engine::addComputers(Computer& newComputer)
     AddCom(INSERT_COMPUTER, newComputer);
 }
 
-void Engine::editComputers(int i)
+void Engine::removeScientist(QString ID)
 {
-    switch(i)
-    {
-        case 1:
-            //AddCom(INSERT_COMPUTER);
-            break;
-        case 2:
-            //RemoveCom();
-            break;
-        default:
-            cout << "Invalid Input, Try again!" << endl;
-            return;
-    }
+    //QString Qid;
+    //Qid = QString::number(removeScientist.getID_Scientist());
+    //int id = removeScientist.getID_Scientist();
+    //QString str = QString("UPDATE persons SET Hide = 'false' where id = %1").arg(id);
+    RemoveSci("UPDATE persons SET Hide = 'true' WHERE id = '"+ID+"'");
 
-    //Needs to return vector to mainWindowClass
 }
+
 
 void Engine::connectScientistAndComputer(int i)
 {

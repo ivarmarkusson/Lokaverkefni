@@ -33,8 +33,9 @@ public:
 
     void addScientists(Scientist& newScientist);
     void addComputers(Computer& newComputer);
-    void editComputers(int i);
     //edit (add or remove) scientists or computers.
+
+    void removeScientist(QString ID);
 
     void connectScientistAndComputer(int i);
     //For connecting scientists and computers

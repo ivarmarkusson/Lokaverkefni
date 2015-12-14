@@ -221,11 +221,13 @@ public:
 
         pushButton_com_remove = new QPushButton(tab_com);
         pushButton_com_remove->setObjectName(QStringLiteral("pushButton_com_remove"));
+        pushButton_com_remove->setEnabled(false);
 
         gridLayout_3->addWidget(pushButton_com_remove, 4, 1, 1, 1);
 
         pushButton_com_edit = new QPushButton(tab_com);
         pushButton_com_edit->setObjectName(QStringLiteral("pushButton_com_edit"));
+        pushButton_com_edit->setEnabled(false);
 
         gridLayout_3->addWidget(pushButton_com_edit, 4, 2, 1, 1);
 
@@ -424,7 +426,7 @@ public:
 
         retranslateUi(DisplayWindow);
 
-        tab_sci_com_conn->setCurrentIndex(0);
+        tab_sci_com_conn->setCurrentIndex(2);
         tab_connect_display_edit->setCurrentIndex(1);
 
 
@@ -451,8 +453,8 @@ public:
         line_sci_name_add_remove_edit->setPlaceholderText(QApplication::translate("DisplayWindow", "Enter Full Name...", 0));
         line_sci_birth_add_remove_edit->setText(QString());
         line_sci_birth_add_remove_edit->setPlaceholderText(QApplication::translate("DisplayWindow", "Birth...", 0));
-        line_sci_death_add_remove_edit->setPlaceholderText(QApplication::translate("DisplayWindow", "Death?...", 0));
-        line_sci_gender_add_remove_edit->setPlaceholderText(QApplication::translate("DisplayWindow", "Sex?...", 0));
+        line_sci_death_add_remove_edit->setPlaceholderText(QApplication::translate("DisplayWindow", "Empty if Alive...", 0));
+        line_sci_gender_add_remove_edit->setPlaceholderText(QApplication::translate("DisplayWindow", "female/male...", 0));
         pushButton_add_sci->setText(QApplication::translate("DisplayWindow", "Add", 0));
         pushButton_remove_sci->setText(QApplication::translate("DisplayWindow", "Remove", 0));
         pushButton_edit_sci->setText(QApplication::translate("DisplayWindow", "Edit", 0));

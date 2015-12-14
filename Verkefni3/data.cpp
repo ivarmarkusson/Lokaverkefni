@@ -160,6 +160,18 @@ void Data::AddCom(QString str, Computer com)
 
     closeDatabase();
 }
+
+void Data::RemoveSci(QString str)
+{
+    openDatabase();
+    QSqlQuery query(db);
+
+    query.prepare(str);
+    query.exec();
+
+    closeDatabase();
+
+}
 /*
 void Data::AddConnected(QString str)
 {
@@ -240,12 +252,7 @@ void Data::AddConnected(QString str)
     closeDatabase();
 }
 */
-/*
-void Data::RemoveSci(QString str)
-{
-    //Might be used
-}
-*/
+
 vector <Connection> Data::viewConnected (QString str)
 {
     openDatabase();
