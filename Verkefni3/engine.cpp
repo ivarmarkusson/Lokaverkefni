@@ -134,12 +134,12 @@ void Engine::addComputers(Computer& newComputer)
 
 void Engine::removeScientist(QString ID)
 {
-    //QString Qid;
-    //Qid = QString::number(removeScientist.getID_Scientist());
-    //int id = removeScientist.getID_Scientist();
-    //QString str = QString("UPDATE persons SET Hide = 'false' where id = %1").arg(id);
-    RemoveSci("UPDATE persons SET Hide = 'true' WHERE id = '"+ID+"'");
+    Remove("UPDATE persons SET Hide = 'true' WHERE id = '"+ID+"'");
+}
 
+void Engine::removeComputer(QString ID)
+{
+    Remove("UPDATE computers SET Hide = 'true' WHERE id = '"+ID+"'");
 }
 
 

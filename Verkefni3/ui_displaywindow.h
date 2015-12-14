@@ -426,7 +426,7 @@ public:
 
         retranslateUi(DisplayWindow);
 
-        tab_sci_com_conn->setCurrentIndex(0);
+        tab_sci_com_conn->setCurrentIndex(1);
         tab_connect_display_edit->setCurrentIndex(1);
 
 

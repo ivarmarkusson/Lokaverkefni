@@ -406,7 +406,7 @@ void DisplayWindow::on_pushButton_remove_sci_clicked()
     removeScientist = currentlyDisplayedScientists.at(index);
 
     QString ID = QString::number(currentlyDisplayedScientists.at(index).getID_Scientist());
-    ui->statusbar->showMessage(ID, 3000);
+    ui->statusbar->showMessage("Scientist Has Been Removed!", 3000);
 
     engineObj.removeScientist(ID);
     connectAllScientists();
@@ -436,4 +436,18 @@ void DisplayWindow::on_pushButton_edit_sci_clicked()
     ui->statusbar->showMessage("Scientist Has Been Edited!", 3000);
 
     connectAllScientists();
+}
+
+void DisplayWindow::on_pushButton_com_remove_clicked()
+{
+    Computer removeComputer;
+
+    int index = ui->table_display_com->currentIndex().row();
+    removeComputer = currentlyDisplayedComputers.at(index);
+
+    QString ID = QString::number(currentlyDisplayedComputers.at(index).getID_Computer());
+    ui->statusbar->showMessage("Computer Has Been Removed!", 3000);
+
+    engineObj.removeComputer(ID);
+    connectAllComputers();
 }

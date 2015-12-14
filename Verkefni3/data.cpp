@@ -161,7 +161,7 @@ void Data::AddCom(QString str, Computer com)
     closeDatabase();
 }
 
-void Data::RemoveSci(QString str)
+void Data::Remove(QString str)
 {
     openDatabase();
     QSqlQuery query(db);
