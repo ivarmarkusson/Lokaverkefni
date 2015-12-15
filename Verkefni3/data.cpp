@@ -190,6 +190,21 @@ void Data::EditSci(Scientist sci)
     query.clear();
     closeDatabase();
 }
+
+void Data::AddConnected(QString str, int c_ID, int s_ID)
+{
+    openDatabase();
+    QSqlQuery query(db);
+
+    query.prepare(str);
+
+    query.bindValue (":computers_id", QString::number(c_ID));
+    query.bindValue (":persons_id", QString::number(s_ID));
+    query.exec();
+
+    closeDatabase();
+}
+
 /*
 void Data::AddConnected(QString str)
 {

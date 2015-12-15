@@ -115,16 +115,17 @@ void DisplayWindow::displayConnections(vector<Connection> connections)
 
     for(unsigned int i = 0; i < connections.size(); i++)
     {
-        Connection currentConnections = connections.at(i);
 
-        QString name_computer = QString::fromStdString(currentConnections.getName_Com());
-        QString name_scientist = QString::fromStdString(currentConnections.getName_Sci());
+        QString name_computer = QString::fromStdString(connections.at(i).getName_Com());
+        QString name_scientist = QString::fromStdString(connections.at(i).getName_Sci());
 
         ui->table_display_connect->setItem(i, 0, new QTableWidgetItem(name_scientist));
         ui->table_display_connect->setItem(i, 1, new QTableWidgetItem(name_computer));
     }
 
     ui->table_display_connect->setSortingEnabled(true);
+
+    currentlyDisplayedConnections = connections;
 }
 
 //DISPLAYS_SCIENTISTS_CONNECTIONS
@@ -257,6 +258,7 @@ void DisplayWindow::on_pushButton_add_sci_clicked()
 
 void DisplayWindow::addScientist()
 {
+    int id = ui->table_display_sci->currentIndex().row();
     string name = ui->line_sci_name_add_remove_edit->text().toStdString();
     name[0] = toupper(name[0]);
     string gender = ui->line_sci_gender_add_remove_edit->text().toStdString();
@@ -266,17 +268,17 @@ void DisplayWindow::addScientist()
     string death = ui->line_sci_death_add_remove_edit->text().toStdString();
     death[0] = toupper(death[0]);
 
-    Scientist newScientist;
-
     if(death == "")
     {
         death = "Alive";
     }
+    Scientist* newScientist = new Scientist(id,name,gender,birth,death);
+    /*
     newScientist.setName_Scientist(name);
     newScientist.setGender_Scientist(gender);
     newScientist.setBirth_Scientist(birth);
     newScientist.setDeath_Scientist(death);
-
+    */
     if(name.empty()|| birth.empty() || gender.empty()
                 || atoi(birth.c_str()) > 2015 || atoi(death.c_str()) > 2015
                 || ((atoi(birth.c_str()) > atoi(death.c_str())) && death != "Alive")
@@ -286,9 +288,11 @@ void DisplayWindow::addScientist()
         }
         else
         {
-            engineObj.addScientists(newScientist);
+            engineObj.addScientists(*newScientist);
             ui->statusbar->showMessage("Scientist Has Been Added!", 3000);
         }
+
+    delete newScientist;
 }
 
 //ADDS_COMPUTER_TO_DATABASE
@@ -300,6 +304,7 @@ void DisplayWindow::on_pushButton_com_add_clicked()
 
 void DisplayWindow::addComputer()
 {
+    int id = ui->table_display_com->currentIndex().row();
     string name = ui->line_com_name_add_remove_edit->text().toStdString();
     name[0] = toupper(name[0]);
     string type = ui->line_com_type_add_remove_edit->text().toStdString();
@@ -309,25 +314,30 @@ void DisplayWindow::addComputer()
     string built = ui->line_com_built_add_remove_edit->text().toStdString();
     built[0] = toupper(built[0]);
 
-    Computer newComputer;
+    Computer* newComputer = new Computer(id,name,type,year,built);
 
+    /*
     newComputer.setName_Computer(name);
     newComputer.setType_Computer(type);
     newComputer.setYearBuilt_Computer(year);
     newComputer.setBuilt_Computer(built);
+    */
 
     if(name.empty() || type.empty() || year.empty() || built.empty()
             || (built != "Yes" && built != "yes" && built != "No" && built != "no")
-            || atoi(year.c_str()) > 2015 || atoi(year.c_str()) > 0)
+            || atoi(year.c_str()) > 2015 || atoi(year.c_str()) < 0)
         {
             ui->statusbar->showMessage("Invalid Input, Try Again!", 3000);
         }
         else
         {
-            engineObj.addComputers(newComputer);
+            engineObj.addComputers(*newComputer);
 
             ui->statusbar->showMessage("Computer Has Been Added", 3000);
         }
+
+    delete newComputer;
+
 }
 
 //SEARCH_SCIENTISTS
@@ -379,23 +389,64 @@ void DisplayWindow::on_line_connect_search_com_textChanged()
 //ENABLE_BUTTONS
 void DisplayWindow::on_table_edit_connect_sci_clicked()
 {
-    scientistClicked = true;
+    if(ui->table_edit_connect_sci->currentItem()->isSelected())
+    {
+        scientistClicked = true;
+    }
+    else
+    {
+        scientistClicked = false;
+    }
+
     if(computerClicked && scientistClicked)
     {
         ui->pushButton_connect->setEnabled(true);
+    }
+    else
+    {
+        ui->pushButton_connect->setEnabled(false);
     }
 }
 void DisplayWindow::on_table_edit_connect_com_clicked()
 {
-    computerClicked = true;
+    if(ui->table_edit_connect_com->currentItem()->isSelected())
+    {
+        computerClicked = true;
+    }
+    else
+    {
+        computerClicked = false;
+    }
+
     if(computerClicked && scientistClicked)
     {
         ui->pushButton_connect->setEnabled(true);
     }
+    else
+    {
+        ui->pushButton_connect->setEnabled(false);
+    }
 }
 void DisplayWindow::on_pushButton_connect_clicked()
 {
+    //Needs fixing, possibly use a pointer like in addSci and addCom
+    Scientist connectScientist;
 
+    int s_index = ui->table_edit_connect_sci->currentIndex().row();
+    connectScientist = currentlyDisplayedScientists.at(s_index);
+    int s_ID = currentlyDisplayedScientists.at(s_index).getID_Scientist();
+
+    Computer connectComputer;
+
+    int c_index = ui->table_edit_connect_com->currentIndex().row();
+    connectComputer = currentlyDisplayedComputers.at(c_index);
+    int c_ID = currentlyDisplayedComputers.at(c_index).getID_Computer();
+
+    ui->statusbar->showMessage(QString::number(c_ID), 3000);
+
+
+    engineObj.addConnection(c_ID,s_ID);
+    connectAllConnections();
 }
 
 void DisplayWindow::on_pushButton_remove_sci_clicked()

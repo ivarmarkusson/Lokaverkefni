@@ -393,7 +393,7 @@ public:
         DisplayWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(DisplayWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 849, 21));
+        menubar->setGeometry(QRect(0, 0, 849, 26));
         DisplayWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(DisplayWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -426,8 +426,8 @@ public:
 
         retranslateUi(DisplayWindow);
 
-        tab_sci_com_conn->setCurrentIndex(1);
-        tab_connect_display_edit->setCurrentIndex(1);
+        tab_sci_com_conn->setCurrentIndex(2);
+        tab_connect_display_edit->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(DisplayWindow);

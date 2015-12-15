@@ -97,7 +97,7 @@ vector<Connection> Engine::sortConnections()
     vector<Connection> temp;
     temp.clear();
     temp = viewConnected(SORT_CONNECTIONS);
-    clearConnectVector();
+    connectionVector.clear();
     return temp;
 }
 
@@ -142,6 +142,11 @@ void Engine::removeComputer(QString ID)
     Remove("UPDATE computers SET Hide = 'true' WHERE id = '"+ID+"'");
 }
 
+void Engine::addConnection(int c_ID, int s_ID)
+{
+    AddConnected("INSERT INTO tengitafla (computers_id, persons_id) VALUES (:c_ID, :s_ID)", c_ID, s_ID);
+}
+
 
 void Engine::connectScientistAndComputer(int i)
 {
@@ -154,6 +159,8 @@ void Engine::connectScientistAndComputer(int i)
                 break;
             case 2:
                 //AddConnected(ADD_CONNECTION);
+                //"INSERT INTO tengitafla (computers_id, persons_id) "
+                //"VALUES (:c_tempId, :s_tempId)"
                 break;
             default:
                 cout << "Invalid Input, Try Again!" << endl;

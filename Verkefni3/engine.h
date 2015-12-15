@@ -38,6 +38,8 @@ public:
     void removeScientist(QString ID);
     void removeComputer(QString ID);
 
+    void addConnection(int c_ID, int s_ID);
+
     void connectScientistAndComputer(int i);
     //For connecting scientists and computers
 

@@ -47,7 +47,7 @@ class Data
 
         void AddSci(QString str, Scientist sci);
         void AddCom(QString str,  Computer com);
-        void AddConnected(QString str);
+        void AddConnected(QString str, int c_ID, int s_ID);
         //Adds new scientist, computer and connection to the list.
 
         void Remove(QString str);
