@@ -53,7 +53,7 @@ class Data
         void Remove(QString str);
         //Removes scientist or computer from the list.
 
-        void EditSci(QString str);
+        void Edit(QString str);
 
         void clearSciVector();
         void clearComVector();

@@ -41,6 +41,7 @@ public:
     //removes scientists and computers
 
     void editScientist(QString name, QString birth, QString death, QString gender, QString id);
+    void editComputer(QString name, QString year, QString type, QString built, QString id);
 
 
 };

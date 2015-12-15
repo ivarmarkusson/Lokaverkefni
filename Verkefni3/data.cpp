@@ -173,7 +173,7 @@ void Data::Remove(QString str)
 
 }
 
-void Data::EditSci(QString str)
+void Data::Edit(QString str)
 {
     openDatabase();
     QSqlQuery query(db);
@@ -202,6 +202,7 @@ vector <Connection> Data::viewConnected (QString str)
     QSqlQuery query(db);
     query.prepare(str);
     query.exec();
+
 
     while(query.next())
     {

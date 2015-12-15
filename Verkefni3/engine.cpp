@@ -143,7 +143,12 @@ void Engine::removeComputer(QString ID)
 
 void Engine::editScientist(QString name, QString birth, QString death, QString gender, QString id)
 {
-    EditSci("UPDATE persons SET Name = '" + name + "', Birth = '" + birth + "', Death = '" + death + "', Gender = '" + gender + "' WHERE id = '" + id + "'");
+    Edit("UPDATE persons SET Name = '" + name + "', Birth = '" + birth + "', Death = '" + death + "', Gender = '" + gender + "' WHERE id = '" + id + "'");
+}
+
+void Engine::editComputer(QString name, QString year, QString type, QString built, QString id)
+{
+    Edit("UPDATE computers SET Name = '" + name + "', Year = '" + year + "', Type = '" + type + "', Built = '" + built + "' WHERE id = '" + id + "'");
 }
 
 void Engine::addConnection(QString c_ID, QString s_ID)

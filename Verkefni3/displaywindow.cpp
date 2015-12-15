@@ -478,12 +478,13 @@ void DisplayWindow::on_pushButton_remove_sci_clicked()
     removeScientist = currentlyDisplayedScientists.at(index);
 
     QString ID = QString::number(currentlyDisplayedScientists.at(index).getID_Scientist());
-    ui->statusbar->showMessage("Scientist Has Been Removed!", 3000);
+    QString name = QString::fromStdString(currentlyDisplayedScientists.at(index).getName_Scientist());
+    ui->statusbar->showMessage(""+name+" Has Been Removed!", 3000);
 
     engineObj.removeScientist(ID);
     connectAllScientists();
+    ui->pushButton_remove_sci->setEnabled(false);
 }
-
 
 void DisplayWindow::on_pushButton_edit_sci_clicked()
 {
@@ -507,9 +508,9 @@ void DisplayWindow::on_pushButton_edit_sci_clicked()
     string death = ui->line_sci_death_add_remove_edit->text().toStdString();
 
     QString Qname = QString::fromStdString(name);
-    QString Qbirth = QString::fromStdString(gender);
-    QString Qdeath = QString::fromStdString(birth);
-    QString Qgender = QString::fromStdString(death);
+    QString Qbirth = QString::fromStdString(birth);
+    QString Qdeath = QString::fromStdString(death);
+    QString Qgender = QString::fromStdString(gender);
     QString Qid = QString::number(s_ID);
 
     engineObj.editScientist(Qname, Qbirth, Qdeath, Qgender, Qid);
@@ -527,8 +528,44 @@ void DisplayWindow::on_pushButton_com_remove_clicked()
     removeComputer = currentlyDisplayedComputers.at(index);
 
     QString ID = QString::number(currentlyDisplayedComputers.at(index).getID_Computer());
-    ui->statusbar->showMessage("Computer Has Been Removed!", 3000);
+    QString name = QString::fromStdString(currentlyDisplayedComputers.at(index).getName_Computer());
+    ui->statusbar->showMessage(""+name+" Has Been Removed!", 3000);
 
     engineObj.removeComputer(ID);
+    connectAllComputers();
+    ui->pushButton_com_remove->setEnabled(false);
+}
+
+void DisplayWindow::on_pushButton_com_edit_clicked()
+{
+    Computer editComputer;
+
+    int index = ui->table_display_com->selectionModel()->currentIndex().row();
+    int c_ID = ui->table_display_com->model()->index(index, 0).data().toInt();
+
+    for(unsigned int i = 0; i < currentlyDisplayedComputers.size(); i++)
+    {
+
+        if(c_ID == currentlyDisplayedComputers.at(i).getID_Computer())
+        {
+            editComputer = currentlyDisplayedComputers.at(i);
+        }
+    }
+
+    string name = ui->line_com_name_add_remove_edit->text().toStdString();
+    string year = ui->line_com_year_add_remove_edit->text().toStdString();
+    string type = ui->line_com_type_add_remove_edit->text().toStdString();
+    string built = ui->line_com_built_add_remove_edit->text().toStdString();
+
+    QString Qname = QString::fromStdString(name);
+    QString Qyear = QString::fromStdString(year);
+    QString Qtype = QString::fromStdString(type);
+    QString Qbuilt = QString::fromStdString(built);
+    QString Qid = QString::number(c_ID);
+
+    engineObj.editComputer(Qname, Qyear, Qtype, Qbuilt, Qid);
+
+    ui->statusbar->showMessage("Computer Has Been Edited!", 3000);
+
     connectAllComputers();
 }

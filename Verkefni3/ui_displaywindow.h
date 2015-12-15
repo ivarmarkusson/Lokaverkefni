@@ -440,7 +440,7 @@ public:
 
         retranslateUi(DisplayWindow);
 
-        tab_sci_com_conn->setCurrentIndex(2);
+        tab_sci_com_conn->setCurrentIndex(1);
         tab_connect_display_edit->setCurrentIndex(0);
 
 
