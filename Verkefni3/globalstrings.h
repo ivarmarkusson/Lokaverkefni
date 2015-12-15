@@ -56,7 +56,7 @@ QString PRINT_CONNECTION = "SELECT persons.Name as pName, ComPutErs.Name FROM Pe
 QString ADD_CONNECTION = "INSERT INTO tengitafla (computers_id, persons_id) "
                          "VALUES (:c_tempId, :s_tempId)";
 
-QString SORT_CONNECTIONS = "select t.id as ID, p.name as pName, c.name as Name "
+QString SORT_CONNECTIONS = "select t.Hide, t.id as ID, p.name as pName, c.name as Name "
                            "from persons p, Computers c, tengitafla t where"
                            " t.computers_id = c.id AND p.id = t.persons_id";
 #endif // GLOBALSTRINGS

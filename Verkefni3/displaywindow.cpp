@@ -453,8 +453,6 @@ void DisplayWindow::on_table_edit_connect_com_clicked()
 }
 void DisplayWindow::on_pushButton_connect_clicked()
 {
-    //Needs fixing, possibly use a pointer like in addSci and addCom
-
     int s_index = ui->table_edit_connect_sci->selectionModel()->currentIndex().row();
     int s_ID = ui->table_edit_connect_sci->model()->index(s_index, 0).data().toInt();
 
@@ -474,11 +472,19 @@ void DisplayWindow::on_pushButton_remove_sci_clicked()
 {
     Scientist removeScientist;
 
-    int index = ui->table_display_sci->currentIndex().row();
-    removeScientist = currentlyDisplayedScientists.at(index);
+    int index = ui->table_display_sci->selectionModel()->currentIndex().row();
+    int s_ID = ui->table_display_sci->model()->index(index, 0).data().toInt();
 
-    QString ID = QString::number(currentlyDisplayedScientists.at(index).getID_Scientist());
-    QString name = QString::fromStdString(currentlyDisplayedScientists.at(index).getName_Scientist());
+    for(unsigned int i = 0; i < currentlyDisplayedScientists.size(); i++)
+    {
+        if(s_ID == currentlyDisplayedScientists.at(i).getID_Scientist())
+        {
+            removeScientist = currentlyDisplayedScientists.at(i);
+        }
+    }
+
+    QString ID = QString::number(removeScientist.getID_Scientist());
+    QString name = QString::fromStdString(removeScientist.getName_Scientist());
     ui->statusbar->showMessage(""+name+" Has Been Removed!", 3000);
 
     engineObj.removeScientist(ID);
@@ -524,11 +530,19 @@ void DisplayWindow::on_pushButton_com_remove_clicked()
 {
     Computer removeComputer;
 
-    int index = ui->table_display_com->currentIndex().row();
-    removeComputer = currentlyDisplayedComputers.at(index);
+    int index = ui->table_display_com->selectionModel()->currentIndex().row();
+    int c_ID = ui->table_display_com->model()->index(index, 0).data().toInt();
 
-    QString ID = QString::number(currentlyDisplayedComputers.at(index).getID_Computer());
-    QString name = QString::fromStdString(currentlyDisplayedComputers.at(index).getName_Computer());
+    for(unsigned int i = 0; i < currentlyDisplayedComputers.size(); i++)
+    {
+        if(c_ID == currentlyDisplayedComputers.at(i).getID_Computer())
+        {
+            removeComputer = currentlyDisplayedComputers.at(i);
+        }
+    }
+
+    QString ID = QString::number(removeComputer.getID_Computer());
+    QString name = QString::fromStdString(removeComputer.getName_Computer());
     ui->statusbar->showMessage(""+name+" Has Been Removed!", 3000);
 
     engineObj.removeComputer(ID);
@@ -568,4 +582,42 @@ void DisplayWindow::on_pushButton_com_edit_clicked()
     ui->statusbar->showMessage("Computer Has Been Edited!", 3000);
 
     connectAllComputers();
+}
+
+void DisplayWindow::on_table_display_connect_clicked()
+{
+    if(!(ui->table_display_connect->currentItem()->isSelected()))
+    {
+        ui->pushButton_remove_connection->setEnabled(false);
+    }
+    else
+    {
+        ui->pushButton_remove_connection->setEnabled(true);
+    }
+
+}
+
+void DisplayWindow::on_pushButton_remove_connection_clicked()
+{
+    Connection removeConnection;
+
+    int index = ui->table_display_connect->selectionModel()->currentIndex().row();
+    int c_ID = ui->table_display_connect->model()->index(index, 0).data().toInt();
+
+    for(unsigned int i = 0; i < currentlyDisplayedConnections.size(); i++)
+    {
+
+        if(c_ID == currentlyDisplayedConnections.at(i).getID_connection())
+        {
+            removeConnection = currentlyDisplayedConnections.at(i);
+        }
+    }
+
+    QString ID = QString::number(removeConnection.getID_connection());
+
+    ui->statusbar->showMessage("Connection Has Been Removed!", 3000);
+
+    engineObj.removeConnection(ID);
+    connectAllConnections();
+    ui->pushButton_remove_sci->setEnabled(false);
 }

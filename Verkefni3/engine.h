@@ -38,7 +38,8 @@ public:
 
     void removeScientist(QString ID);
     void removeComputer(QString ID);
-    //removes scientists and computers
+    void removeConnection(QString ID);
+    //removes scientists, computers and connection
 
     void editScientist(QString name, QString birth, QString death, QString gender, QString id);
     void editComputer(QString name, QString year, QString type, QString built, QString id);

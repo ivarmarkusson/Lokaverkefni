@@ -80,6 +80,7 @@ public:
     QLineEdit *line_connect_search_com;
     QTableWidget *table_edit_connect_com;
     QPushButton *pushButton_connect;
+    QPushButton *pushButton_remove_connection;
     QPushButton *pushButton_close;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -396,6 +397,12 @@ public:
 
         gridLayout_4->addWidget(tab_connect_display_edit, 0, 0, 1, 1);
 
+        pushButton_remove_connection = new QPushButton(tab_conn);
+        pushButton_remove_connection->setObjectName(QStringLiteral("pushButton_remove_connection"));
+        pushButton_remove_connection->setEnabled(false);
+
+        gridLayout_4->addWidget(pushButton_remove_connection, 1, 0, 1, 1);
+
         tab_sci_com_conn->addTab(tab_conn, QString());
 
         gridLayout_6->addWidget(tab_sci_com_conn, 0, 0, 1, 1);
@@ -408,7 +415,7 @@ public:
         DisplayWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(DisplayWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 849, 26));
+        menubar->setGeometry(QRect(0, 0, 849, 21));
         DisplayWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(DisplayWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -440,7 +447,7 @@ public:
 
         retranslateUi(DisplayWindow);
 
-        tab_sci_com_conn->setCurrentIndex(1);
+        tab_sci_com_conn->setCurrentIndex(2);
         tab_connect_display_edit->setCurrentIndex(0);
 
 
@@ -535,6 +542,7 @@ public:
         ___qtablewidgetitem22->setText(QApplication::translate("DisplayWindow", "Built", 0));
         pushButton_connect->setText(QApplication::translate("DisplayWindow", "Connect", 0));
         tab_connect_display_edit->setTabText(tab_connect_display_edit->indexOf(tab_conn_edit), QApplication::translate("DisplayWindow", "Edit", 0));
+        pushButton_remove_connection->setText(QApplication::translate("DisplayWindow", "Remove Selected Connection", 0));
         tab_sci_com_conn->setTabText(tab_sci_com_conn->indexOf(tab_conn), QApplication::translate("DisplayWindow", "Connections", 0));
         pushButton_close->setText(QApplication::translate("DisplayWindow", "Close", 0));
     } // retranslateUi

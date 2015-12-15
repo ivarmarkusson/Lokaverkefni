@@ -141,6 +141,11 @@ void Engine::removeComputer(QString ID)
     Remove("UPDATE computers SET Hide = 'true' WHERE id = '"+ID+"'");
 }
 
+void Engine::removeConnection(QString ID)
+{
+    Remove("UPDATE tengitafla SET Hide = 'true' WHERE id = '"+ID+"'");
+}
+
 void Engine::editScientist(QString name, QString birth, QString death, QString gender, QString id)
 {
     Edit("UPDATE persons SET Name = '" + name + "', Birth = '" + birth + "', Death = '" + death + "', Gender = '" + gender + "' WHERE id = '" + id + "'");

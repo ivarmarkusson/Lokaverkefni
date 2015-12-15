@@ -21,7 +21,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab_sci_main">
        <attribute name="title">
@@ -529,6 +529,16 @@
           </widget>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QPushButton" name="pushButton_remove_connection">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Remove Selected Connection</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -548,7 +558,7 @@
      <x>0</x>
      <y>0</y>
      <width>849</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

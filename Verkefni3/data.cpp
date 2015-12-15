@@ -206,12 +206,15 @@ vector <Connection> Data::viewConnected (QString str)
 
     while(query.next())
     {
-        int ID = query.value("Id").toInt();
-        string s_name = query.value("pName").toString().toStdString();
-        string c_name = query.value("Name").toString().toStdString();
+        if(query.value("Hide") == "false")
+        {
+            int ID = query.value("Id").toInt();
+            string s_name = query.value("pName").toString().toStdString();
+            string c_name = query.value("Name").toString().toStdString();
 
-        Connection con(ID,s_name, c_name);
-        connectionVector.push_back(con);
+            Connection con(ID,s_name, c_name);
+            connectionVector.push_back(con);
+        }
     }
     closeDatabase();
     return connectionVector;
