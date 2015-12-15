@@ -403,6 +403,16 @@
               </column>
              </widget>
             </item>
+            <item row="2" column="0">
+             <widget class="QPushButton" name="pushButton_remove_connection">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Remove Selected Connection</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
           <widget class="QWidget" name="tab_conn_edit">
@@ -527,16 +537,6 @@
             </item>
            </layout>
           </widget>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="pushButton_remove_connection">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="text">
-           <string>Remove Selected Connection</string>
-          </property>
          </widget>
         </item>
        </layout>

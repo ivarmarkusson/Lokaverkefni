@@ -73,6 +73,7 @@ public:
     QGridLayout *gridLayout_5;
     QLineEdit *line_connect_search;
     QTableWidget *table_display_connect;
+    QPushButton *pushButton_remove_connection;
     QWidget *tab_conn_edit;
     QGridLayout *gridLayout;
     QLineEdit *line_connect_search_sci;
@@ -80,7 +81,6 @@ public:
     QLineEdit *line_connect_search_com;
     QTableWidget *table_edit_connect_com;
     QPushButton *pushButton_connect;
-    QPushButton *pushButton_remove_connection;
     QPushButton *pushButton_close;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -327,6 +327,12 @@ public:
 
         gridLayout_5->addWidget(table_display_connect, 1, 0, 1, 1);
 
+        pushButton_remove_connection = new QPushButton(tab_conn_display);
+        pushButton_remove_connection->setObjectName(QStringLiteral("pushButton_remove_connection"));
+        pushButton_remove_connection->setEnabled(false);
+
+        gridLayout_5->addWidget(pushButton_remove_connection, 2, 0, 1, 1);
+
         tab_connect_display_edit->addTab(tab_conn_display, QString());
         tab_conn_edit = new QWidget();
         tab_conn_edit->setObjectName(QStringLiteral("tab_conn_edit"));
@@ -396,12 +402,6 @@ public:
         tab_connect_display_edit->addTab(tab_conn_edit, QString());
 
         gridLayout_4->addWidget(tab_connect_display_edit, 0, 0, 1, 1);
-
-        pushButton_remove_connection = new QPushButton(tab_conn);
-        pushButton_remove_connection->setObjectName(QStringLiteral("pushButton_remove_connection"));
-        pushButton_remove_connection->setEnabled(false);
-
-        gridLayout_4->addWidget(pushButton_remove_connection, 1, 0, 1, 1);
 
         tab_sci_com_conn->addTab(tab_conn, QString());
 
@@ -517,6 +517,7 @@ public:
         ___qtablewidgetitem11->setText(QApplication::translate("DisplayWindow", "Scientist Name", 0));
         QTableWidgetItem *___qtablewidgetitem12 = table_display_connect->horizontalHeaderItem(2);
         ___qtablewidgetitem12->setText(QApplication::translate("DisplayWindow", "Computer Name", 0));
+        pushButton_remove_connection->setText(QApplication::translate("DisplayWindow", "Remove Selected Connection", 0));
         tab_connect_display_edit->setTabText(tab_connect_display_edit->indexOf(tab_conn_display), QApplication::translate("DisplayWindow", "Display", 0));
         line_connect_search_sci->setPlaceholderText(QApplication::translate("DisplayWindow", "Search...", 0));
         QTableWidgetItem *___qtablewidgetitem13 = table_edit_connect_sci->horizontalHeaderItem(0);
@@ -542,7 +543,6 @@ public:
         ___qtablewidgetitem22->setText(QApplication::translate("DisplayWindow", "Built", 0));
         pushButton_connect->setText(QApplication::translate("DisplayWindow", "Connect", 0));
         tab_connect_display_edit->setTabText(tab_connect_display_edit->indexOf(tab_conn_edit), QApplication::translate("DisplayWindow", "Edit", 0));
-        pushButton_remove_connection->setText(QApplication::translate("DisplayWindow", "Remove Selected Connection", 0));
         tab_sci_com_conn->setTabText(tab_sci_com_conn->indexOf(tab_conn), QApplication::translate("DisplayWindow", "Connections", 0));
         pushButton_close->setText(QApplication::translate("DisplayWindow", "Close", 0));
     } // retranslateUi

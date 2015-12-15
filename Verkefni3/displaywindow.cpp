@@ -34,6 +34,7 @@ void DisplayWindow::connectAllScientists()
     scientists.clear();
     currentlyDisplayedScientists.clear();
     scientists = engineObj.sortSientists(1);
+    //GLOBAL BREYTA A 1
     displayScientists(scientists);
     displaySciConnections(scientists);
 }
@@ -43,6 +44,7 @@ void DisplayWindow::connectAllComputers()
     computers.clear();
     currentlyDisplayedComputers.clear();
     computers = engineObj.sortComputers(1);
+    //GLOBAL BREYTA A 1
     displayComputers(computers);
     displayComConnections(computers);
 }
