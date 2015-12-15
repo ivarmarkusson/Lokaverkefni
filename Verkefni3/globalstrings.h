@@ -57,7 +57,7 @@ QString ADD_CONNECTION = "INSERT INTO tengitafla (computers_id, persons_id) "
                          "VALUES (:c_tempId, :s_tempId)";
 
 QString SORT_CONNECTIONS = "SELECT persons.Name as pName, ComPutErs.Name FROM Persons "
-                           "INNER JOIN tengitafla ON persons.ID = tengitafla.ID INNER "
-                           "JOIN Computers ON computers.ID = tengitafla.ID";
+                           "INNER JOIN tengitafla ON persons.ID = tengitafla.persons_id INNER "
+                           "JOIN Computers ON computers.ID = tengitafla.computers_id";
 
 #endif // GLOBALSTRINGS
