@@ -121,7 +121,6 @@ vector<Computer> Engine::searchComputers(const string input)
     return temp;
 }
 
-
 void Engine::addScientists(Scientist& newScientist)
 {
     AddSci(INSERT_PERSON,newScientist);
@@ -142,33 +141,14 @@ void Engine::removeComputer(QString ID)
     Remove("UPDATE computers SET Hide = 'true' WHERE id = '"+ID+"'");
 }
 
-void Engine::addConnection(int c_ID, int s_ID)
+void Engine::editScientist(QString name, QString birth, QString death, QString gender, QString id)
 {
-    AddConnected("INSERT INTO tengitafla (computers_id, persons_id) VALUES (:c_ID, :s_ID)", c_ID, s_ID);
+    EditSci("UPDATE persons SET Name = '" + name + "', Birth = '" + birth + "', Death = '" + death + "', Gender = '" + gender + "' WHERE id = '" + id + "'");
 }
 
-
-void Engine::connectScientistAndComputer(int i)
+void Engine::addConnection(QString c_ID, QString s_ID)
 {
-    vector<Connection> temp;
-
-    switch(i)
-        {
-            case 1:
-                temp = viewConnected(PRINT_CONNECTION);
-                break;
-            case 2:
-                //AddConnected(ADD_CONNECTION);
-                //"INSERT INTO tengitafla (computers_id, persons_id) "
-                //"VALUES (:c_tempId, :s_tempId)"
-                break;
-            default:
-                cout << "Invalid Input, Try Again!" << endl;
-                break;
-        }
-
-    //Needs to return vector to mainWindowClass
-    clearConnectVector();
-    temp.clear();
+    AddConnected("INSERT INTO tengitafla (computers_id, persons_id) VALUES ('"+c_ID+"', '"+s_ID+"')");
 }
+
 

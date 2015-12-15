@@ -47,13 +47,13 @@ class Data
 
         void AddSci(QString str, Scientist sci);
         void AddCom(QString str,  Computer com);
-        void AddConnected(QString str, int c_ID, int s_ID);
+        void AddConnected(QString str);
         //Adds new scientist, computer and connection to the list.
 
         void Remove(QString str);
         //Removes scientist or computer from the list.
 
-        void EditSci(Scientist sci);
+        void EditSci(QString str);
 
         void clearSciVector();
         void clearComVector();

@@ -33,15 +33,15 @@ public:
 
     void addScientists(Scientist& newScientist);
     void addComputers(Computer& newComputer);
-    //edit (add or remove) scientists or computers.
+    void addConnection(QString c_ID, QString s_ID);
+    //add functions
 
     void removeScientist(QString ID);
     void removeComputer(QString ID);
+    //removes scientists and computers
 
-    void addConnection(int c_ID, int s_ID);
+    void editScientist(QString name, QString birth, QString death, QString gender, QString id);
 
-    void connectScientistAndComputer(int i);
-    //For connecting scientists and computers
 
 };
 
