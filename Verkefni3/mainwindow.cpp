@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-//Constructor - more info later
+//Constructor - Open Connection to Login Database
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -19,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         ui->label_status->setText("User Database Connected");
     }
-    //connect(ui->pushButton_login,SIGNAL(clicked()), this, SLOT(login_menu()));
-
 }
 
 //Deconstructor

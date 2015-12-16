@@ -18,8 +18,6 @@ DisplayWindow::DisplayWindow(QWidget *parent) :
     connectAllConnections();
 
     connect(ui->pushButton_close,SIGNAL(clicked()), this, SLOT(close()));
-    //connect(ui->pushButton_add_sci, SIGNAL(clicked()), this, SLOT(addScientist()));
-
 }
 
 DisplayWindow::~DisplayWindow()
@@ -33,21 +31,23 @@ void DisplayWindow::connectAllScientists()
     vector<Scientist> scientists;
     scientists.clear();
     currentlyDisplayedScientists.clear();
-    scientists = engineObj.sortSientists(1);
+    scientists = engineObj.sortSientists();
     //GLOBAL BREYTA A 1
     displayScientists(scientists);
     displaySciConnections(scientists);
 }
+
 void DisplayWindow::connectAllComputers()
 {
     vector<Computer> computers;
     computers.clear();
     currentlyDisplayedComputers.clear();
-    computers = engineObj.sortComputers(1);
+    computers = engineObj.sortComputers();
     //GLOBAL BREYTA A 1
     displayComputers(computers);
     displayComConnections(computers);
 }
+
 void DisplayWindow::connectAllConnections()
 {
     vector<Connection> connections;
@@ -280,7 +280,6 @@ void DisplayWindow::on_table_display_com_clicked()
     ui->line_com_built_add_remove_edit->setText(qBuilt);
 }
 
-
 //ADDS_SCIENTIST_TO_DATABASE
 void DisplayWindow::on_pushButton_add_sci_clicked()
 {
@@ -310,18 +309,36 @@ void DisplayWindow::addScientist()
     newScientist.setBirth_Scientist(birth);
     newScientist.setDeath_Scientist(death);
 
-    if(name.empty()|| birth.empty() || gender.empty()
-                || atoi(birth.c_str()) > 2015 || atoi(death.c_str()) > 2015
-                || ((atoi(birth.c_str()) > atoi(death.c_str())) && death != "Alive")
-                || (gender != "Male" && gender != "male" && gender != "Female" && gender != "female"))
+    if(name.empty() || atoi(name.c_str()))
+    {
+        ui->statusbar->showMessage("Name Invalid, Try Again!", 4000);
+    }
+    else
+    {
+        if(birth.empty() || atoi(birth.c_str()) < 0 || atoi(birth.c_str()) > 2015 || !atoi(birth.c_str()))
         {
-            ui->statusbar->showMessage("Invalid Input, Try Again!", 3000);
+            ui->statusbar->showMessage("Year of Birth Invalid, Try Again!", 4000);
         }
         else
         {
-            engineObj.addScientists(newScientist);
-            ui->statusbar->showMessage("Scientist Has Been Added!", 3000);
+            if((death.empty() || atoi(death.c_str()) < atoi(birth.c_str()) || atoi(death.c_str()) > 2015) && death != "Alive")
+            {
+                ui->statusbar->showMessage("Year of Death Invalid, Try Again!", 4000);
+            }
+            else
+            {
+                if(gender.empty() || atoi(gender.c_str()) || (gender != "Male" && gender != "male" && gender != "Female" && gender != "female"))
+                {
+                    ui->statusbar->showMessage("Gender Invalid, Try Again!", 4000);
+                }
+                else
+                {
+                    engineObj.addScientists(newScientist);
+                    ui->statusbar->showMessage("Scientist Has Been Added!", 4000);
+                }
+            }
         }
+    }
 
 }
 
@@ -351,18 +368,36 @@ void DisplayWindow::addComputer()
     newComputer.setBuilt_Computer(built);
 
 
-    if(name.empty() || type.empty() || year.empty() || built.empty()
-            || (built != "Yes" && built != "yes" && built != "No" && built != "no")
-            || atoi(year.c_str()) > 2015 || atoi(year.c_str()) < 0)
+    if(name.empty() || atoi(name.c_str()))
+    {
+        ui->statusbar->showMessage("Name Invalid, Try Again!", 4000);
+    }
+    else
+    {
+        if(year.empty() || atoi(year.c_str()) < 0 || atoi(year.c_str()) > 2015 || !atoi(year.c_str()))
         {
-            ui->statusbar->showMessage("Invalid Input, Try Again!", 3000);
+           ui->statusbar->showMessage("Year Invalid, Try Again!", 4000);
         }
         else
         {
-            engineObj.addComputers(newComputer);
-
-            ui->statusbar->showMessage("Computer Has Been Added", 3000);
+            if((type.empty()))
+            {
+                ui->statusbar->showMessage("Type Invalid, Try Again!", 4000);
+            }
+            else
+            {
+                if(built.empty() || (built != "Yes" && built != "yes" && built != "No" && built != "no"))
+                {
+                    ui->statusbar->showMessage("Must Type Yes or No, Try Again!", 4000);
+                }
+                else
+                {
+                    engineObj.addComputers(newComputer);
+                    ui->statusbar->showMessage("Computer Has Been Added!", 4000);
+                }
+            }
         }
+    }
 
 }
 
@@ -401,6 +436,7 @@ void DisplayWindow::on_line_connect_search_sci_textChanged()
     searchResults = engineObj.searchScientists(input);
     displaySciConnections(searchResults);
 }
+
 void DisplayWindow::on_line_connect_search_com_textChanged()
 {
     string input = ui->line_connect_search_com->text().toStdString();
@@ -433,6 +469,7 @@ void DisplayWindow::on_table_edit_connect_sci_clicked()
         ui->pushButton_connect->setEnabled(false);
     }
 }
+
 void DisplayWindow::on_table_edit_connect_com_clicked()
 {
     if(ui->table_edit_connect_com->currentItem()->isSelected())
@@ -453,6 +490,21 @@ void DisplayWindow::on_table_edit_connect_com_clicked()
         ui->pushButton_connect->setEnabled(false);
     }
 }
+
+void DisplayWindow::on_table_display_connect_clicked()
+{
+    if(!(ui->table_display_connect->currentItem()->isSelected()))
+    {
+        ui->pushButton_remove_connection->setEnabled(false);
+    }
+    else
+    {
+        ui->pushButton_remove_connection->setEnabled(true);
+    }
+
+}
+
+//CONNECT_SCIENTIST_AND_COMPUTERS
 void DisplayWindow::on_pushButton_connect_clicked()
 {
     int s_index = ui->table_edit_connect_sci->selectionModel()->currentIndex().row();
@@ -470,6 +522,7 @@ void DisplayWindow::on_pushButton_connect_clicked()
     connectAllConnections();
 }
 
+//REMOVES_SCIENTIST_FROM_TABLE
 void DisplayWindow::on_pushButton_remove_sci_clicked()
 {
     Scientist removeScientist;
@@ -494,40 +547,7 @@ void DisplayWindow::on_pushButton_remove_sci_clicked()
     ui->pushButton_remove_sci->setEnabled(false);
 }
 
-void DisplayWindow::on_pushButton_edit_sci_clicked()
-{
-    Scientist editScientist;
-
-    int index = ui->table_display_sci->selectionModel()->currentIndex().row();
-    int s_ID = ui->table_display_sci->model()->index(index, 0).data().toInt();
-
-    for(unsigned int i = 0; i < currentlyDisplayedScientists.size(); i++)
-    {
-
-        if(s_ID == currentlyDisplayedScientists.at(i).getID_Scientist())
-        {
-            editScientist = currentlyDisplayedScientists.at(i);
-        }
-    }
-
-    string name = ui->line_sci_name_add_remove_edit->text().toStdString();
-    string gender = ui->line_sci_gender_add_remove_edit->text().toStdString();
-    string birth = ui->line_sci_birth_add_remove_edit->text().toStdString();
-    string death = ui->line_sci_death_add_remove_edit->text().toStdString();
-
-    QString Qname = QString::fromStdString(name);
-    QString Qbirth = QString::fromStdString(birth);
-    QString Qdeath = QString::fromStdString(death);
-    QString Qgender = QString::fromStdString(gender);
-    QString Qid = QString::number(s_ID);
-
-    engineObj.editScientist(Qname, Qbirth, Qdeath, Qgender, Qid);
-
-    ui->statusbar->showMessage("Scientist Has Been Edited!", 3000);
-
-    connectAllScientists();
-}
-
+//REMOVES_COMPUTERS_FROM_TABLE
 void DisplayWindow::on_pushButton_com_remove_clicked()
 {
     Computer removeComputer;
@@ -552,6 +572,102 @@ void DisplayWindow::on_pushButton_com_remove_clicked()
     ui->pushButton_com_remove->setEnabled(false);
 }
 
+//REMOVES_CONNECTION_BETWEEN_SCIENTISTS_AND_COMPUTERS
+void DisplayWindow::on_pushButton_remove_connection_clicked()
+{
+    Connection removeConnection;
+
+    int index = ui->table_display_connect->selectionModel()->currentIndex().row();
+    int c_ID = ui->table_display_connect->model()->index(index, 0).data().toInt();
+
+    for(unsigned int i = 0; i < currentlyDisplayedConnections.size(); i++)
+    {
+
+        if(c_ID == currentlyDisplayedConnections.at(i).getID_connection())
+        {
+            removeConnection = currentlyDisplayedConnections.at(i);
+        }
+    }
+
+    QString ID = QString::number(removeConnection.getID_connection());
+
+    ui->statusbar->showMessage("Connection Has Been Removed!", 4000);
+
+    engineObj.removeConnection(ID);
+    connectAllConnections();
+    ui->pushButton_remove_sci->setEnabled(false);
+}
+
+//EDIT_SCIENTIST_IN_TABLE
+void DisplayWindow::on_pushButton_edit_sci_clicked()
+{
+    Scientist editScientist;
+
+    int index = ui->table_display_sci->selectionModel()->currentIndex().row();
+    int s_ID = ui->table_display_sci->model()->index(index, 0).data().toInt();
+
+    for(unsigned int i = 0; i < currentlyDisplayedScientists.size(); i++)
+    {
+
+        if(s_ID == currentlyDisplayedScientists.at(i).getID_Scientist())
+        {
+            editScientist = currentlyDisplayedScientists.at(i);
+        }
+    }
+
+    string name = ui->line_sci_name_add_remove_edit->text().toStdString();
+    string gender = ui->line_sci_gender_add_remove_edit->text().toStdString();
+    string birth = ui->line_sci_birth_add_remove_edit->text().toStdString();
+    string death = ui->line_sci_death_add_remove_edit->text().toStdString();
+
+    if(death == "")
+    {
+        death = "Alive";
+    }
+
+    QString Qname = QString::fromStdString(name);
+    QString Qbirth = QString::fromStdString(birth);
+    QString Qdeath = QString::fromStdString(death);
+    QString Qgender = QString::fromStdString(gender);
+    QString Qid = QString::number(s_ID);
+
+    if(name.empty() || atoi(name.c_str()))
+    {
+        ui->statusbar->showMessage("Name Invalid, Try Again!", 4000);
+    }
+    else
+    {
+        if(birth.empty() || atoi(birth.c_str()) < 0 || atoi(birth.c_str()) > 2015 || !atoi(birth.c_str()))
+        {
+            ui->statusbar->showMessage("Year of Birth Invalid, Try Again!", 4000);
+        }
+        else
+        {
+            if((death.empty() || atoi(death.c_str()) < atoi(birth.c_str()) || atoi(death.c_str()) > 2015) && death != "Alive")
+            {
+                ui->statusbar->showMessage("Year of Death Invalid, Try Again!", 4000);
+            }
+            else
+            {
+                if(gender.empty() || atoi(gender.c_str()) || (gender != "Male" && gender != "male" && gender != "Female" && gender != "female"))
+                {
+                    ui->statusbar->showMessage("Gender Invalid, Try Again!", 4000);
+                }
+                else
+                {
+                    engineObj.editScientist(Qname, Qbirth, Qdeath, Qgender, Qid);
+
+                    ui->statusbar->showMessage("Scientist Has Been Edited!", 4000);
+
+                    connectAllScientists();
+                    connectAllConnections();
+                }
+            }
+        }
+    }
+}
+
+//EDIT_COMPUTER_IN_TABLE
 void DisplayWindow::on_pushButton_com_edit_clicked()
 {
     Computer editComputer;
@@ -579,47 +695,40 @@ void DisplayWindow::on_pushButton_com_edit_clicked()
     QString Qbuilt = QString::fromStdString(built);
     QString Qid = QString::number(c_ID);
 
-    engineObj.editComputer(Qname, Qyear, Qtype, Qbuilt, Qid);
-
-    ui->statusbar->showMessage("Computer Has Been Edited!", 3000);
-
-    connectAllComputers();
-}
-
-void DisplayWindow::on_table_display_connect_clicked()
-{
-    if(!(ui->table_display_connect->currentItem()->isSelected()))
+    if(name.empty() || atoi(name.c_str()))
     {
-        ui->pushButton_remove_connection->setEnabled(false);
+        ui->statusbar->showMessage("Name Invalid, Try Again!", 4000);
     }
     else
     {
-        ui->pushButton_remove_connection->setEnabled(true);
-    }
-
-}
-
-void DisplayWindow::on_pushButton_remove_connection_clicked()
-{
-    Connection removeConnection;
-
-    int index = ui->table_display_connect->selectionModel()->currentIndex().row();
-    int c_ID = ui->table_display_connect->model()->index(index, 0).data().toInt();
-
-    for(unsigned int i = 0; i < currentlyDisplayedConnections.size(); i++)
-    {
-
-        if(c_ID == currentlyDisplayedConnections.at(i).getID_connection())
+        if(year.empty() || atoi(year.c_str()) < 0 || atoi(year.c_str()) > 2015 || !atoi(year.c_str()))
         {
-            removeConnection = currentlyDisplayedConnections.at(i);
+           ui->statusbar->showMessage("Year Invalid, Try Again!", 4000);
+        }
+        else
+        {
+            if((type.empty()))
+            {
+                ui->statusbar->showMessage("Type Invalid, Try Again!", 4000);
+            }
+            else
+            {
+                if(built.empty() || (built != "Yes" && built != "yes" && built != "No" && built != "no"))
+                {
+                    ui->statusbar->showMessage("Must Type Yes or No, Try Again!", 4000);
+                }
+                else
+                {
+                    engineObj.editComputer(Qname, Qyear, Qtype, Qbuilt, Qid);
+
+                    ui->statusbar->showMessage("Computer Has Been Edited!", 3000);
+
+                    connectAllComputers();
+                    connectAllConnections();
+                }
+            }
         }
     }
-
-    QString ID = QString::number(removeConnection.getID_connection());
-
-    ui->statusbar->showMessage("Connection Has Been Removed!", 3000);
-
-    engineObj.removeConnection(ID);
-    connectAllConnections();
-    ui->pushButton_remove_sci->setEnabled(false);
 }
+
+

@@ -34,7 +34,6 @@ class Data
 {
     public:
         Data();
-        QSqlDatabase db;
 
         void openDatabase();
         //Opens database from SQL.
@@ -43,17 +42,13 @@ class Data
 
         vector<Scientist> SortSci(QString str);
         vector<Computer> SortCom(QString str);
+        vector<Connection> SortConn(QString str);
         //Runs SQL database and returns a vector to be printed out
 
         void AddSci(QString str, Scientist sci);
         void AddCom(QString str,  Computer com);
-        void AddConnected(QString str);
+        void AddRemoveEdit(QString str);
         //Adds new scientist, computer and connection to the list.
-
-        void Remove(QString str);
-        //Removes scientist or computer from the list.
-
-        void Edit(QString str);
 
         void clearSciVector();
         void clearComVector();
@@ -62,16 +57,16 @@ class Data
 
         vector<Scientist> searchSci(QString str, const string searchText);
         vector<Computer> searchCom(QString str, string searchText);
-        vector<Connection> viewConnected(QString str);
         //Opens SQLite Database, pushes to vectors below and
         //returns them in Engine(DOMAIN) Class
-
-        //PRIVATE:
 
         vector<Scientist> scientistVector;
         vector<Computer> computerVector;
         vector<Connection> connectionVector;
         //Vectors that data is pushed into for printing
+
+    private:
+        QSqlDatabase db;
 };
 
 #endif // DATA_H

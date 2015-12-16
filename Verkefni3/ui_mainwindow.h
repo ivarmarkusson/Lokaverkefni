@@ -50,7 +50,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(324, 323);
+        MainWindow->resize(369, 342);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -106,7 +106,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 324, 26));
+        menuBar->setGeometry(QRect(0, 0, 369, 26));
         menuMain_Menu = new QMenu(menuBar);
         menuMain_Menu->setObjectName(QStringLiteral("menuMain_Menu"));
         MainWindow->setMenuBar(menuBar);

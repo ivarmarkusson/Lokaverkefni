@@ -59,4 +59,5 @@ QString ADD_CONNECTION = "INSERT INTO tengitafla (computers_id, persons_id) "
 QString SORT_CONNECTIONS = "select t.Hide, t.id as ID, p.name as pName, c.name as Name "
                            "from persons p, Computers c, tengitafla t where"
                            " t.computers_id = c.id AND p.id = t.persons_id";
+
 #endif // GLOBALSTRINGS

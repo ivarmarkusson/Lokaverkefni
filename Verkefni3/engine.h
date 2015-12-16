@@ -16,14 +16,13 @@ class Scientist;
 class Computer;
 class Connection;
 
-
 class Engine:Data
 {
 public:
     Engine();
 
-    vector<Scientist> sortSientists(int i);
-    vector<Computer> sortComputers(int i);
+    vector<Scientist> sortSientists();
+    vector<Computer> sortComputers();
     vector<Connection> sortConnections();
     //Sort Functions, for sort choices.
 
@@ -43,7 +42,7 @@ public:
 
     void editScientist(QString name, QString birth, QString death, QString gender, QString id);
     void editComputer(QString name, QString year, QString type, QString built, QString id);
-
+    //Edits Scientists and Computers in Table
 
 };
 

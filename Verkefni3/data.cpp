@@ -1,9 +1,6 @@
 #include "data.h"
 #include <iostream>
 #include <vector>
-#include <stdlib.h>
-#include <algorithm>
-#include <functional>
 #include "scientist.h"
 #include "engine.h"
 #include "connection.h"
@@ -13,11 +10,7 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
-#include <QFileInfo>
 #include <QString>
-#include <QtSql/QSql>
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
 #include <QVariant>
 #include <cstdlib>
 #include <stdlib.h>
@@ -27,10 +20,7 @@
 using namespace std;
 class Scientist;
 
-Data::Data()
-{
-
-}
+Data::Data(){}
 
 void Data::openDatabase()
 {
@@ -161,19 +151,7 @@ void Data::AddCom(QString str, Computer com)
     closeDatabase();
 }
 
-void Data::Remove(QString str)
-{
-    openDatabase();
-    QSqlQuery query(db);
-
-    query.prepare(str);
-    query.exec();
-
-    closeDatabase();
-
-}
-
-void Data::Edit(QString str)
+void Data::AddRemoveEdit(QString str)
 {
     openDatabase();
     QSqlQuery query(db);
@@ -185,18 +163,7 @@ void Data::Edit(QString str)
     closeDatabase();
 }
 
-void Data::AddConnected(QString str)
-{
-    openDatabase();
-    QSqlQuery query(db);
-
-    query.prepare(str);
-    query.exec();
-
-    closeDatabase();
-}
-
-vector <Connection> Data::viewConnected (QString str)
+vector <Connection> Data::SortConn (QString str)
 {
     openDatabase();
     QSqlQuery query(db);
@@ -300,3 +267,5 @@ vector<Computer> Data::searchCom(QString str, string searchText)
     closeDatabase();
     return computerVector;
 }
+
+

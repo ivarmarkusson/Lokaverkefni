@@ -65,18 +65,20 @@ private:
     void connectAllScientists();
     void displayScientists(vector<Scientist> scientists);
     void displaySciConnections(vector<Scientist> scientists);
+    //Functions to Connect to Database and Display Scientists
 
     void connectAllComputers();
     void displayComputers(vector<Computer> computers);
     void displayComConnections(vector<Computer> computers);
+    //Functions to Connect to Database and Display Computers
 
     void connectAllConnections();
     void displayConnections(vector<Connection> connections);
-
-
+    //Functions to Connect to Database and Display Connections
 
     void addScientist();
     void addComputer();
+    //Add Functions
 
     Ui::DisplayWindow *ui;
 
